@@ -1,18 +1,10 @@
-//
-//  UIButton+Flat.swift
-//  UIButton+Flat
-//
-//  Created by Jason Cox on 4/11/20.
-//  Copyright © 2020 Jason Cox. All rights reserved.
-//
-
 import UIKit
 
-@IBDesignable class UIButton_Flat: UIButton {
+@IBDesignable open class UIButtonFlat: UIButton {
     // MARK: - Interface Builder Properties
         
     // MARK: Background properties
-    @IBInspectable internal var flatBackground: Bool = false {
+    @IBInspectable public var flatBackground: Bool = false {
         didSet {
             // Render the control
             self.renderControl();
@@ -20,19 +12,19 @@ import UIKit
     };
     
     // MARK: Border properties
-    @IBInspectable internal var border: Bool = false {
+    @IBInspectable public var border: Bool = false {
         didSet {
             // Render the control
             self.renderControl();
         }
     };
-    @IBInspectable internal var borderColor: UIColor = .clear {
+    @IBInspectable public var borderColor: UIColor = .clear {
         didSet {
             // Render the control
             self.renderControl();
         }
     };
-    @IBInspectable internal var borderWidth: CGFloat = 1 {
+    @IBInspectable public var borderWidth: CGFloat = 1 {
         didSet {
             // Render the control
             self.renderControl();
@@ -40,13 +32,13 @@ import UIKit
     };
     
     // MARK: Corner Properties
-    @IBInspectable internal var corner: Bool = false {
+    @IBInspectable public var corner: Bool = false {
         didSet {
             // Render the control
             self.renderControl();
         }
     };
-    @IBInspectable internal var cornerRadius: CGFloat = CGFloat.zero {
+    @IBInspectable public var cornerRadius: CGFloat = CGFloat.zero {
         didSet {
             // Render the control
             self.renderControl();
@@ -55,21 +47,21 @@ import UIKit
     
     // MARK: - Overrides
     
-    override var isEnabled: Bool {
+    public override var isEnabled: Bool {
         didSet {
             // Update an outlined button's enabled state
             self.updateBorderEnabled();
         }
     }
     
-    override var isHighlighted: Bool {
+    public override var isHighlighted: Bool {
         didSet {
             // Update an outlined button's highlight state
             self.updateBorderHighlight();
         }
     }
     
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+    public override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
         // Render the control
         self.renderControl();
     }
