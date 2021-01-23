@@ -6,6 +6,9 @@ This extension provides the ability to easily create a UIButton with a flat styl
 To learn more about this project, please visit it on 
 [GitHub](https://github.com/DarthXoc/UIButtonFlat).
 
+## Demo
+Give UIButtonFlat a try without having to type a single line of code with the [UIButtonFlat Demo](https://github.com/DarthXoc/UIButtonFlat-Demo).
+
 ## Installation
 Simply add UIButtonFlat via Swift Package Manager to your project... that's it!
 
