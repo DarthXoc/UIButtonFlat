@@ -166,6 +166,13 @@ import UIKit
         // Clear the background color; this is useful if you've had to set a background color in a Storyboard in order to see a button that hasn't been fully rendered yet
         self.backgroundColor = .clear;
         
+        // Set the image to the same color as the title
+        self.imageView?.tintColor = self.currentTitleColor;
+        
+        // Disable any adjust of the image
+        self.adjustsImageWhenDisabled = false;
+        self.adjustsImageWhenHighlighted = false;
+        
         // Indicate that the view needs laid out
         self.setNeedsLayout();
     }
