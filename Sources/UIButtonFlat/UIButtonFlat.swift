@@ -137,6 +137,10 @@ import UIKit
             self.setBackgroundImage(self.imageFromColor(color: self.blendColors(colors: [self.tintColor ?? .clear, colorBlendDisabled])), for: .disabled);
             self.setBackgroundImage(self.imageFromColor(color: self.blendColors(colors: [self.tintColor ?? .clear, colorBlendHighlighted])), for: .highlighted);
             self.setBackgroundImage(self.imageFromColor(color: self.blendColors(colors: [self.tintColor ?? .clear, colorBlendNormal])), for: .normal);
+            
+            // Tell UIButton not to adjust tint
+            // - Not setting this can lead to the button losing it's background if it tries to re-render while off-screen
+            self.tintAdjustmentMode = .normal
         }
         
         // Check to see if a border should be applied
