@@ -77,7 +77,11 @@ import UIKit
                 return .black;
             case .disabled:
                 // Return white is light mode, black in dark mode, to mimick iOS defaults
-                return self.traitCollection.userInterfaceStyle == .light ? .white : .black;
+                if #available(tvOS 10.0, *) {
+                    return self.traitCollection.userInterfaceStyle == .light ? .white : .black
+                } else {
+                    return .white
+                };
             default:
                 return color;
         }
