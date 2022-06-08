@@ -77,11 +77,7 @@ import UIKit
                 return .black;
             case .disabled:
                 // Return white is light mode, black in dark mode, to mimick iOS defaults
-                if #available(iOS 12.0, tvOS 10.0, *) {
-                    return self.traitCollection.userInterfaceStyle == .light ? .white : .black
-                } else {
-                    return .white
-                };
+                return self.traitCollection.userInterfaceStyle == .light ? .white : .black
             default:
                 return color;
         }
@@ -132,15 +128,15 @@ import UIKit
     private func renderControl() {
         // Check to see if a flat background color was specified
         if (self.flatBackground) {
-            // Retreive the blended colors
-            let colorBlendDisabled: UIColor = self.actionColor(color: self.tintColor ?? .clear, state: .disabled);
-            let colorBlendHighlighted: UIColor = self.actionColor(color: self.tintColor ?? .clear, state: .highlighted);
-            let colorBlendNormal: UIColor = self.actionColor(color: self.tintColor ?? .clear, state: .normal);
+            // Retrieve the blended colors
+            let colorBlendDisabled: UIColor = self.actionColor(color: self.backgroundColor ?? .clear, state: .disabled);
+            let colorBlendHighlighted: UIColor = self.actionColor(color: self.backgroundColor ?? .clear, state: .highlighted);
+            let colorBlendNormal: UIColor = self.actionColor(color: self.backgroundColor ?? .clear, state: .normal);
 
             // Set the button's background images
-            self.setBackgroundImage(self.imageFromColor(color: self.blendColors(colors: [self.tintColor ?? .clear, colorBlendDisabled])), for: .disabled);
-            self.setBackgroundImage(self.imageFromColor(color: self.blendColors(colors: [self.tintColor ?? .clear, colorBlendHighlighted])), for: .highlighted);
-            self.setBackgroundImage(self.imageFromColor(color: self.blendColors(colors: [self.tintColor ?? .clear, colorBlendNormal])), for: .normal);
+            self.setBackgroundImage(self.imageFromColor(color: self.blendColors(colors: [self.backgroundColor ?? .clear, colorBlendDisabled])), for: .disabled);
+            self.setBackgroundImage(self.imageFromColor(color: self.blendColors(colors: [self.backgroundColor ?? .clear, colorBlendHighlighted])), for: .highlighted);
+            self.setBackgroundImage(self.imageFromColor(color: self.blendColors(colors: [self.backgroundColor ?? .clear, colorBlendNormal])), for: .normal);
             
             // Tell UIButton not to adjust tint
             // - Not setting this can lead to the button losing it's background if it tries to re-render while off-screen
@@ -171,15 +167,17 @@ import UIKit
             self.layer.cornerRadius = self.cornerRadius;
         }
         
-        // Clear the background color; this is useful if you've had to set a background color in a Storyboard in order to see a button that hasn't been fully rendered yet
-        self.backgroundColor = .clear;
-        
         // Set the image to the same color as the title
         self.imageView?.tintColor = self.currentTitleColor;
         
         // Disable any adjust of the image
         self.adjustsImageWhenDisabled = false;
         self.adjustsImageWhenHighlighted = false;
+        
+        // Set the button's title colors
+        self.setTitleColor(self.titleLabel?.textColor.withAlphaComponent(0.66) ?? .label.withAlphaComponent(0.66), for: .disabled)
+        self.setTitleColor(self.blendColors(colors: [self.titleLabel?.textColor ?? .label, .black]), for: .highlighted)
+        self.setTitleColor(self.titleLabel?.textColor ?? .label, for: .normal)
         
         // Indicate that the view needs laid out
         self.setNeedsLayout();
@@ -191,19 +189,11 @@ import UIKit
     private func updateBorderEnabled() {
         // Check to see if a border has been applied
         if (self.border) {
-            // Retreive the blending color
-            let colorBlendDisabled: UIColor = self.actionColor(color: self.tintColor ?? .clear, state: .disabled);
+            // Retrieve the blending color
+            let colorBlendDisabled: UIColor = self.actionColor(color: self.backgroundColor ?? .clear, state: .disabled);
             
-            // Retreive the disabled colors
+            // Retrieve the disabled colors
             let colorDisabled: UIColor = self.blendColors(colors: [self.borderColor, colorBlendDisabled]);
-
-            // Check to see if a flat background color was NOT specified
-            // - The title color should match the color of the border only when a flat background color has not been specified
-            if (!self.flatBackground) {
-                // Update the title color
-                self.setTitleColor(colorDisabled, for: .disabled);
-                self.setTitleColor(self.borderColor, for: .normal);
-            }
 
             // Check to see if the button is enabled
             switch self.isEnabled {
@@ -221,19 +211,11 @@ import UIKit
     private func updateBorderHighlight() {
         // Check to see if a border has been applied
         if (self.border) {
-            // Retreive the blending color
-            let colorBlendHighlighted: UIColor = self.actionColor(color: self.tintColor ?? .clear, state: .highlighted);
+            // Retrieve the blending color
+            let colorBlendHighlighted: UIColor = self.actionColor(color: self.backgroundColor ?? .clear, state: .highlighted);
             
-            // Retreive the highlighted color
+            // Retrieve the highlighted color
             let colorHighlight: UIColor = self.blendColors(colors: [self.borderColor, colorBlendHighlighted]);
-
-            // Check to see if a flat background color was specified
-            // - The title color should match the color of the border only when a flat background color has not been specified
-            if (!self.flatBackground) {
-                // Update the title color
-                self.setTitleColor(colorHighlight, for: .highlighted);
-                self.setTitleColor(self.borderColor, for: .normal);
-            }
             
             // Check to see if the button is highlighted
             switch self.isHighlighted {
@@ -247,3 +229,4 @@ import UIKit
         }
     }
 }
+
