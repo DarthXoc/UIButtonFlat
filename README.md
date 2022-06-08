@@ -39,8 +39,8 @@ let button: UIButtonFlat = UIButtonFlat(type: .custom)
 | borderWidth | CGFloat | 1 | The width of the border |
 | corner | Bool | false | Determines if a rounded corner will be applied |
 | cornerRadius | CGFloat | 0 | The radius of the corner |
-| tintColor | UIColor | self.view.tintColor | The color used when drawing a flat background |
-| titleLabel.textColor | UIColor | .white | The color used by the title label; ignored if flatBackground is set to false |
+| backgroundColor | UIColor | self.view.backgroundColor | The color used when drawing a flat background |
+| textColor | UIColor | .white | The color used by the title label; overrides titleLabel.textColor |
 
 
 ## Known Issues
