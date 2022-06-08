@@ -176,7 +176,7 @@ import UIKit
         
         // Set the button's title colors
         self.setTitleColor(self.titleLabel?.textColor.withAlphaComponent(0.66) ?? .label.withAlphaComponent(0.66), for: .disabled)
-        self.setTitleColor(self.blendColors(colors: [self.titleLabel?.textColor ?? .label, .black]), for: .highlighted)
+        self.setTitleColor(self.blendColors(colors: [self.titleLabel?.textColor ?? .label, .black.withAlphaComponent(0.50)]), for: .highlighted)
         self.setTitleColor(self.titleLabel?.textColor ?? .label, for: .normal)
         
         // Indicate that the view needs laid out
