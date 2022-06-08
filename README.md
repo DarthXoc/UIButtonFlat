@@ -40,7 +40,7 @@ let button: UIButtonFlat = UIButtonFlat(type: .custom)
 | corner | Bool | false | Determines if a rounded corner will be applied |
 | cornerRadius | CGFloat | 0 | The radius of the corner |
 | backgroundColor | UIColor | self.view.backgroundColor | The color used when drawing a flat background |
-| textColor | UIColor | .white | The color used by the title label; separate from titleLabel.textColor |
+| textColor | UIColor | .white | The color used by the title label; overrides titleLabel.textColor |
 
 
 ## Known Issues

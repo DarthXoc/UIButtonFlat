@@ -243,10 +243,13 @@ import UIKit
     
     /// Updates the color of the title text
     private func updateTitleTextColor() {
+        // Retrieve the blending color
+        let colorBlendDisabled: UIColor = self.actionColor(color: self.backgroundColor ?? .clear, state: .disabled);
+        let colorBlendHighlighted: UIColor = self.actionColor(color: self.backgroundColor ?? .clear, state: .highlighted);
+        
         // Set the button's title colors
         self.setTitleColor(self.textColor, for: .normal)
-        self.setTitleColor(self.textColor.withAlphaComponent(0.66), for: .disabled)
-        self.setTitleColor(self.blendColors(colors: [self.textColor, .black.withAlphaComponent(0.33)]), for: .highlighted)
+        self.setTitleColor(self.blendColors(colors: [self.textColor, colorBlendDisabled]), for: .disabled)
+        self.setTitleColor(self.blendColors(colors: [self.textColor, colorBlendHighlighted]), for: .highlighted)
     }
 }
-
