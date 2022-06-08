@@ -45,6 +45,14 @@ import UIKit
         }
     };
     
+    // MARK: Title Text Properties
+    @IBInspectable public var textColor: UIColor = .clear {
+        didSet {
+            // Render the control
+            self.renderControl();
+        }
+    };
+    
     // MARK: - Overrides
     
     public override var isEnabled: Bool {
@@ -73,10 +81,10 @@ import UIKit
         // Check the button's state
         switch state {
             case .highlighted:
-                // Return black in all appearances to mimick iOS defaults
+                // Return black in all appearances to mimic iOS defaults
                 return .black;
             case .disabled:
-                // Return white is light mode, black in dark mode, to mimick iOS defaults
+                // Return white is light mode, black in dark mode, to mimic iOS defaults
                 return self.traitCollection.userInterfaceStyle == .light ? .white : .black
             default:
                 return color;
@@ -170,14 +178,12 @@ import UIKit
         // Set the image to the same color as the title
         self.imageView?.tintColor = self.currentTitleColor;
         
+        // Update the title text color
+        self.updateTitleTextColor()
+        
         // Disable any adjust of the image
         self.adjustsImageWhenDisabled = false;
         self.adjustsImageWhenHighlighted = false;
-        
-        // Set the button's title colors
-        self.setTitleColor(self.titleLabel?.textColor.withAlphaComponent(0.66) ?? .label.withAlphaComponent(0.66), for: .disabled)
-        self.setTitleColor(self.blendColors(colors: [self.titleLabel?.textColor ?? .label, .black.withAlphaComponent(0.50)]), for: .highlighted)
-        self.setTitleColor(self.titleLabel?.textColor ?? .label, for: .normal)
         
         // Indicate that the view needs laid out
         self.setNeedsLayout();
@@ -187,6 +193,9 @@ import UIKit
     
     /// Updates the control's border to show if it is enabled
     private func updateBorderEnabled() {
+        // Update the title text color
+        self.updateTitleTextColor()
+        
         // Check to see if a border has been applied
         if (self.border) {
             // Retrieve the blending color
@@ -209,6 +218,9 @@ import UIKit
     
     /// Updates the control's border to show if it is highlighted
     private func updateBorderHighlight() {
+        // Update the title text color
+        self.updateTitleTextColor()
+
         // Check to see if a border has been applied
         if (self.border) {
             // Retrieve the blending color
@@ -227,6 +239,14 @@ import UIKit
                     self.layer.borderColor = self.borderColor.cgColor;
             }
         }
+    }
+    
+    /// Updates the color of the title text
+    private func updateTitleTextColor() {
+        // Set the button's title colors
+        self.setTitleColor(self.textColor, for: .normal)
+        self.setTitleColor(self.textColor.withAlphaComponent(0.66), for: .disabled)
+        self.setTitleColor(self.blendColors(colors: [self.textColor, .black.withAlphaComponent(0.33)]), for: .highlighted)
     }
 }
 
